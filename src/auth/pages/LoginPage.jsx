@@ -34,7 +34,7 @@ export const LoginPage = () => {
               <TextField
                 label="password"
                 type="password"
-                placeholder="correo@google.com"
+                placeholder="password"
                 fullWidth
               />
             </Grid>
