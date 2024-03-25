@@ -1,49 +1,53 @@
-import { Grid, Typography, TextField } from "@mui/material"
+import { Google } from "@mui/icons-material"
+import { Grid, Typography, TextField, Button, Link as MaterialLink } from "@mui/material"
+import { Link as RouterLink } from "react-router-dom"
+import { AuthLayout } from "../layout/AuthLayout"
 
 export const LoginPage = () => {
   return (
-    <Grid 
-      container 
-      spacing={ 0 }
-      direction={ "column" }
-      alignItems="center"
-      justifyContent="center"
-      sx={{ minHeight: "100vh", backgroundColor: "primary.main", padding: 4 }}
-    >
+    <AuthLayout title="Login">
+      <form action="">
+        <Grid container>
+          <Grid item xs={ 12 } sx={{ mt: 2 }}>
+            <TextField
+              label="email"
+              type="email"
+              placeholder="correo@google.com"
+              fullWidth
+            />
+          </Grid>
 
-      <Grid
-        item
-        className="box-shadow"
-        xs={ 3 }
-        sx={{ backgroundColor: "white", padding: 3, borderRadius: 2 }}
-      >
-        <Typography variant="h5" sx={{ mb: 1 }}>Login</Typography>
+          <Grid item xs={ 12 } sx={{ mt: 2 }}>
+            <TextField
+              label="password"
+              type="password"
+              placeholder="password"
+              fullWidth
+            />
+          </Grid>
 
-        <form action="">
-          <Grid container>
-            <Grid item xs={ 12 } sx={{ mt: 2 }}>
-              <TextField
-                label="email"
-                type="email"
-                placeholder="correo@google.com"
-                fullWidth
-              />
+          <Grid container spacing={ 2 } sx={{ mt: 1, mb: 2}}>
+            <Grid item xs={ 12 } sm={ 6 }>
+              <Button variant="contained" fullWidth>
+                Login
+              </Button>
             </Grid>
-
-            <Grid item xs={ 12 } sx={{ mt: 2 }}>
-              <TextField
-                label="password"
-                type="password"
-                placeholder="password"
-                fullWidth
-              />
+            <Grid item xs={ 12 } sm={ 6 }>
+              <Button variant="contained" fullWidth>
+                <Google />
+                  <Typography sx={{ ml: 1 }}>Login with</Typography>
+              </Button>
             </Grid>
           </Grid>
-        </form>
 
+          <Grid container direction='row' justifyContent='end'>
+            <MaterialLink component={ RouterLink } color="inherit" to="/auth/register">
+              Create an account
+            </MaterialLink>
+          </Grid>
 
-      </Grid>
-
-    </Grid>
+        </Grid>
+      </form>
+  </AuthLayout>
   )
 }
