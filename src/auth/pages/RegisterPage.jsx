@@ -8,19 +8,23 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/useForm";
+import { useState } from "react";
 
 const formData = {
   displayName: "petito",
   email: "petito@das.com",
-  password: "1234",
+  password: "1234asd",
 };
 
 const formValidations = {
-  displayName: [(value) => value.lenght >= 3, "FullName is required"],
+  displayName: [(value) => value.length >= 3, "FullName is required"],
   email: [(value) => value.includes("@"), "Should contain @."],
-  password: [(value) => value.lenght >= 6, "password is required."],
+  password: [(value) => value.length >= 6, "password is required."],
 };
+
 export const RegisterPage = () => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const {
     formState,
     displayName,
@@ -35,7 +39,7 @@ export const RegisterPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
+    setFormSubmitted(true);
   };
 
   return (
@@ -51,7 +55,7 @@ export const RegisterPage = () => {
               name="displayName"
               value={displayName}
               onChange={onInputChange}
-              error={!displayNameValid}
+              error={!!displayNameValid && formSubmitted}
               helperText={displayNameValid}
             />
           </Grid>
@@ -65,7 +69,7 @@ export const RegisterPage = () => {
               name="email"
               value={email}
               onChange={onInputChange}
-              error={!emailValid}
+              error={!!emailValid && formSubmitted}
               helperText={emailValid}
             />
           </Grid>
@@ -79,7 +83,7 @@ export const RegisterPage = () => {
               name="password"
               value={password}
               onChange={onInputChange}
-              error={!passwordValid}
+              error={!!passwordValid && formSubmitted}
               helperText={passwordValid}
             />
           </Grid>
