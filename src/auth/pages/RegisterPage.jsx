@@ -11,9 +11,9 @@ import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
 
 const formData = {
-  displayName: "petito",
-  email: "petito@das.com",
-  password: "1234asd",
+  displayName: "",
+  email: "",
+  password: "",
 };
 
 const formValidations = {
@@ -35,11 +35,13 @@ export const RegisterPage = () => {
     emailValid,
     passwordValid,
     formValid,
+    isFormValid,
   } = useForm(formData, formValidations);
 
   const onSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true);
+    if (!isFormValid) return;
   };
 
   return (
