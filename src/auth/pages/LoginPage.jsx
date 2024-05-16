@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   checkingAuthentication,
   startGoogleSingIn,
+  startLoginWithEmailPassword,
 } from "../../store/auth/thunks";
 import { useMemo } from "react";
 
@@ -20,7 +21,7 @@ export const LoginPage = () => {
   const { status } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const { email, password, onInputChange } = useForm({
+  const { formState, email, password, onInputChange } = useForm({
     email: "petito@das.com",
     password: "1234",
   });
@@ -29,7 +30,8 @@ export const LoginPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(checkingAuthentication(email, password));
+    dispatch(startLoginWithEmailPassword(formState));
+    console.log("Sign In email and password");
   };
 
   const onGoogleSingIn = () => {
@@ -69,6 +71,7 @@ export const LoginPage = () => {
             <Grid item xs={12} sm={6}>
               <Button
                 disabled={isAuthenticating}
+                onClick={onSubmit}
                 type="submit"
                 variant="contained"
                 fullWidth
