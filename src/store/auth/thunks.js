@@ -16,7 +16,7 @@ export const startGoogleSingIn = () => {
   return async (dispatch) => {
     dispatch(checkingCredentials());
     const result = await singInWithGoogle();
-    if (!result.ok) return dispatch(logout(result.errorMessage));
+    if (!result.ok) return dispatch(logout(result));
     dispatch(login(result));
   };
 };
@@ -29,16 +29,15 @@ export const startCreatingUserWithEmailPassword = ({
   return async (dispatch) => {
     dispatch(checkingCredentials());
 
-    const { ok, errorMessage, uid, photoURL } =
-      await registreUserWithEmailPassword({
-        displayName,
-        email,
-        password,
-      });
+    const result = await registreUserWithEmailPassword({
+      displayName,
+      email,
+      password,
+    });
 
-    if (!ok) return dispatch(logout({ errorMessage }));
+    if (!result.ok) return dispatch(logout());
 
-    dispatch(login({ uid, email, displayName, photoURL }));
+    dispatch(login(result));
   };
 };
 
@@ -46,9 +45,8 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
   return async (dispatch) => {
     dispatch(checkingCredentials());
     const result = await singInWithEmailPassword({ email, password });
-    console.log(result);
 
-    if (!result.ok) return dispatch(logout(result.errorMessage));
+    if (!result.ok) return dispatch(logout(result));
     dispatch(login(result));
   };
 };
