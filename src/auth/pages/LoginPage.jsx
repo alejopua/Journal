@@ -5,6 +5,7 @@ import {
   TextField,
   Button,
   Link as MaterialLink,
+  Alert,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
@@ -18,7 +19,7 @@ import {
 import { useMemo } from "react";
 
 export const LoginPage = () => {
-  const { status } = useSelector((state) => state.auth);
+  const { status, errorMessage } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const { formState, email, password, onInputChange } = useForm({
@@ -68,6 +69,10 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mt: 1, mb: 2 }}>
+            <Grid display={!!errorMessage ? "" : "none"} item xs={12}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <Button
                 disabled={isAuthenticating}
